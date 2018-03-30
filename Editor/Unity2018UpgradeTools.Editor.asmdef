@@ -1,0 +1,8 @@
+{
+    "name": "Unity2018UpgradeTools.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
