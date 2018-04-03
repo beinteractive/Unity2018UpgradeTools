@@ -37,6 +37,11 @@ namespace Unity2018UpgradeTools
                 .Where(_ => !_.enableInstancing);
         }
 
+        public static IEnumerable<Material> UsingShader(this IEnumerable<Material> materials, string shaderName)
+        {
+            return materials.Where(_ => _.shader.name == shaderName);
+        }
+
         public static void Log(this IEnumerable<IGrouping<string, string>> self)
         {
             foreach (var e in self)
@@ -61,6 +66,17 @@ namespace Unity2018UpgradeTools
             }
             
             ADB.SaveAssets();
+        }
+
+        public static void ReplaceShader(this IEnumerable<Material> self, string shaderName, Action<Material> f = null)
+        {
+            var shader = Shader.Find(shaderName);
+            
+            self.Update(m =>
+            {
+                m.shader = shader;
+                f?.Invoke(m);
+            });
         }
 
         public static void EnableGPUInstancing(this IEnumerable<Material> self)
