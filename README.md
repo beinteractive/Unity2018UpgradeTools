@@ -46,6 +46,36 @@ public class Unity2018Upgrading
 
 This will update a shader of materials that has a specified shader to new shader.
 
+## Bulk Update Particle Systems
+
+```C#
+using Unity2018UpgradeTools;
+using UnityEditor;
+
+public class Unity2018Upgrading
+{
+    [MenuItem("Assets/Bulk Update Particles in Assets")]
+    static void UpdateParticlesInAssets()
+    {
+        GameObjects
+            .Search(new[] { "Assets/Materials" })
+            .ParticleSystems()
+            .EnableGPUInstancing();
+    }
+
+    [MenuItem("Assets/Bulk Update Particles in Scene")]
+    static void UpdateParticlesInScene()
+    {
+        GameObjects
+            .AllInScene()
+            .ParticleSystems()
+            .EnableGPUInstancing();
+    }
+}
+```
+
+This will update particle systems that has billboard render mode to use mesh & GPU Instancing.
+
 ## Find & Update Missing GPU Instancing Materials
 
 ```C#
