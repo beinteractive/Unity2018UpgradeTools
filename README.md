@@ -13,7 +13,10 @@ public class Unity2018Upgrading
     [MenuItem("Assets/Analyze Shader Usage")]
     static void Analyze()
     {
-        Materials.SearchMaterials(new[] { "Assets/Materials" }).AnalyzeShaderUsage().Log();
+        Materials
+            .SearchMaterials(new[] { "Assets/Materials" })
+            .AnalyzeShaderUsage()
+            .Log();
     }
 }
 ```
@@ -21,6 +24,27 @@ public class Unity2018Upgrading
 This will generate logs in console that indicates which shaders are used by materials.
 
 It's useful to find shaders/materials you should rewrite for SRP compatible.
+
+## Bulk Update Shaders
+
+```C#
+using Unity2018UpgradeTools;
+using UnityEditor;
+
+public class Unity2018Upgrading
+{
+    [MenuItem("Assets/Bulk Update Shaders")]
+    static void BulkUpdate()
+    {
+        Materials
+            .SearchMaterials(new[] { "Assets/Materials" })
+            .UsingShader("Unlit/Color")
+            .ReplaceShader("Lightweight/Unlit/Color");
+    }
+}
+```
+
+This will update a shader of materials that has a specified shader to new shader.
 
 ## Find & Update Missing GPU Instancing Materials
 
@@ -33,13 +57,19 @@ public class Unity2018Upgrading
     [MenuItem("Assets/Bulk Update Missing GPU Instancing/Dry Run")]
     static void ShowMissingGPUInstancing()
     {
-        Materials.SearchMaterials(new[] { "Assets/Materials" }).FindMissingGPUInstancingMaterials().Log();
+        Materials
+            .SearchMaterials(new[] { "Assets/Materials" })
+            .FindMissingGPUInstancingMaterials()
+            .Log();
     }
 
     [MenuItem("Assets/Bulk Update Missing GPU Instancing/Run")]
     static void UpdateMissingGPUInstancing()
     {
-        Materials.SearchMaterials(new[] { "Assets/Materials" }).FindMissingGPUInstancingMaterials().EnableGPUInstancing();
+        Materials
+            .SearchMaterials(new[] { "Assets/Materials" })
+            .FindMissingGPUInstancingMaterials()
+            .EnableGPUInstancing();
     }
 }
 ```
